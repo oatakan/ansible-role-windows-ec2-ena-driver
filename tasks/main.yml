@@ -1,0 +1,37 @@
+---
+
+- name: download zip file
+  win_get_url:
+    url: '{{ ena_driver_download_url }}'
+    dest: '{{ temp_directory }}\AwsEnaNetworkDriver.zip'
+  register: download_driver
+  until: download_driver is success
+  delay: 3
+  retries: 5
+  ignore_errors: yes
+  when:
+    - ena_driver_download_url is defined
+
+- block:
+
+    - name: create temp directory
+      win_file:
+        path: '{{ temp_directory }}\AwsEnaNetworkDriver'
+        state: directory
+
+    - name: unzip driver
+      win_unzip:
+        src: '{{ temp_directory }}\AwsEnaNetworkDriver.zip'
+        dest: '{{ temp_directory }}\AwsEnaNetworkDriver'
+        recurse: no
+        delete_archive: yes
+
+    - name: install driver
+      win_shell: '{{ temp_directory }}\AwsEnaNetworkDriver\install.ps1'
+
+    - name: clean up temp directory
+      win_file:
+        path: '{{ temp_directory }}\AwsEnaNetworkDriver'
+        state: absent
+
+  when: download_driver is success

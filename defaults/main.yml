@@ -1,0 +1,4 @@
+---
+
+ena_driver_download_url: https://s3.amazonaws.com/ec2-windows-drivers-downloads/ENA/Latest/AwsEnaNetworkDriver.zip
+temp_directory: "{{ ansible_env.TEMP }}"
