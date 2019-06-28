@@ -2,7 +2,7 @@
 galaxy_info:
   author: Orcun Atakan
   description: Ansible galaxy role for installing ena driver on Windows ec2 image.
-  role_name: windows-ec2-ena-driver
+  role_name: windows_ec2_ena_driver
   company: Red Hat
 
   license: MIT
@@ -13,9 +13,6 @@ galaxy_info:
     - name: Windows
       versions:
         - all
-
-  categories:
-    - all
 
   cloud_platforms:
     - amazon
